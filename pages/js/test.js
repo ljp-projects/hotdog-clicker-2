@@ -1,3 +1,1 @@
-window.onload = () => {
-    console.log(document.querySelectorAll("#stats span")[0].textContent)
-}
+console.log(document.querySelectorAll("#stats span")[0].textContent)
