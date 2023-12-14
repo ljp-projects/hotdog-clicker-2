@@ -1,3 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
+window.onload = () => {
     console.log(document.querySelectorAll("#stats span")[0].textContent)
-})
+}
