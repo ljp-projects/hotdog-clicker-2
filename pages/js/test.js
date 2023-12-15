@@ -117,15 +117,18 @@ const update = () => {
 };
 function check(interval) {
     stats.updates++;
-    return update() ? setInterval(update, interval) : 0;
+    return update() ? setInterval(() => {
+        const amt = stats.mps / (1000 / interval);
+        stats.money += amt;
+        update();
+    }, interval) : 0;
 }
 if (document.readyState !== 'complete') {
     window.onload = () => {
         const r = check(100);
-        console.log(r != 0 ? (() => {
+        if (r !== 0) {
             setTimeout(() => stats.money += stats.mps / 10, 100);
-            return r;
-        })() : "Failed to loop.");
+        }
     };
 }
 else
