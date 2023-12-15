@@ -1,18 +1,26 @@
 "use strict";
 const stats = {
     money: 0,
+    mps: 0,
     totalEarned: 0,
     totalClicks: 0,
     updates: 0,
-    power: 1
+    power: 1,
+    stall: {
+        price: 15,
+        owned: 0,
+        rate: 1
+    }
 };
 var Elements;
 (function (Elements) {
     Elements[Elements["Money"] = 0] = "Money";
-    Elements[Elements["TotalEarned"] = 1] = "TotalEarned";
-    Elements[Elements["TotalClicks"] = 2] = "TotalClicks";
-    Elements[Elements["Power"] = 3] = "Power";
+    Elements[Elements["MPS"] = 1] = "MPS";
+    Elements[Elements["TotalEarned"] = 2] = "TotalEarned";
+    Elements[Elements["TotalClicks"] = 3] = "TotalClicks";
+    Elements[Elements["Power"] = 4] = "Power";
     Elements[Elements["Button"] = 0] = "Button";
+    Elements[Elements["Stall"] = 0] = "Stall";
 })(Elements || (Elements = {}));
 const getStat = (index) => {
     return document.querySelectorAll("#stats p span")[index];
@@ -78,18 +86,28 @@ const round = (n, max) => {
     return n.toFixed(max != null ? max : 5);
 };
 const update = () => {
-    const moneyElement = getStat(Elements.Money), totalEarnedElement = getStat(Elements.TotalEarned), totalClicksElement = getStat(Elements.TotalClicks), buttonElement = getGame(Elements.Button), powerElement = getStat(Elements.Power), stallBuyElement = getBuilds(0, "section", "button");
-    if (moneyElement && totalEarnedElement && totalClicksElement && buttonElement && powerElement && stallBuyElement) {
-        moneyElement.textContent = round(stats.money, 2);
-        totalEarnedElement.textContent = round(stats.totalEarned, 2);
-        totalClicksElement.textContent = round(stats.totalClicks, 2);
-        powerElement.textContent = round(stats.power, 2);
+    const moneyElement = getStat(Elements.Money), totalEarnedElement = getStat(Elements.TotalEarned), totalClicksElement = getStat(Elements.TotalClicks), buttonElement = getGame(Elements.Button), powerElement = getStat(Elements.Power), mpsElement = getStat(Elements.MPS), stallBuyElement = getBuilds(Elements.Stall, "section", "button"), stallPriceElement = getBuilds(Elements.Stall, "section", "em span"), stallOwnedElement = getBuilds(Elements.Stall, "section", "p span"), stallRateElement = getBuilds(Elements.Stall, "section", "strong span");
+    if (moneyElement && totalEarnedElement && totalClicksElement && buttonElement && powerElement && stallBuyElement && stallPriceElement && stallOwnedElement) {
         buttonElement.onclick = function () {
             stats.money += stats.power;
             stats.totalClicks++;
             stats.totalEarned += stats.power;
         };
-        console.log(stallBuyElement.textContent);
+        if (stats.money >= stats.stall.price)
+            stallBuyElement.onclick = function () {
+                stats.money -= stats.stall.price;
+                stats.stall.price *= 1.25;
+                stats.stall.owned++;
+                stats.mps += stats.stall.rate;
+            };
+        moneyElement.textContent = round(stats.money, 2);
+        mpsElement.textContent = round(stats.mps, 2);
+        totalEarnedElement.textContent = round(stats.totalEarned, 2);
+        totalClicksElement.textContent = round(stats.totalClicks, 0);
+        powerElement.textContent = round(stats.power, 2);
+        stallOwnedElement.textContent = round(stats.stall.owned, 2);
+        stallPriceElement.textContent = round(stats.stall.price, 2);
+        stallRateElement.textContent = round(stats.stall.rate, 2);
         return true;
     }
     return false;
@@ -101,7 +119,10 @@ function check(interval) {
 if (document.readyState !== 'complete') {
     window.onload = () => {
         const r = check(100);
-        console.log(r != 0 ? r : "Failed to loop.");
+        console.log(r != 0 ? (() => {
+            setTimeout(() => stats.money += stats.mps / 10, 100);
+            return r;
+        })() : "Failed to loop.");
     };
 }
 else
