@@ -33,19 +33,10 @@ const update = () => {
     }
     return false;
 };
-function check(v, max) {
+function check(interval) {
     stats.updates++;
-    if (v) {
-        const r = update();
-        r ? requestAnimationFrame(update) : check(r, 100);
-    }
-    else if (stats.updates < max) {
-        check(v, max);
-    }
-    else {
-        console.error(`Not executing script, required dom elements not found after ${max} tries.`);
-    }
+    return update() ? setInterval(update, interval) : 0;
 }
 window.onload = function () {
-    check(update(), 100);
+    check(100);
 };
