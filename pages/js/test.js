@@ -124,15 +124,7 @@ function check(interval) {
     }, interval) : 0;
 }
 if (document.readyState !== 'complete') {
-    window.onload = () => {
-        const r = check(100);
-        if (r !== 0) {
-            setTimeout(() => stats.money += stats.mps / 10, 100);
-        }
-    };
+    window.onload = () => check(100);
 }
 else
-    (() => {
-        const r = check(100);
-        console.log(r != 0 ? r : "Failed to loop.");
-    })();
+    check(100);
