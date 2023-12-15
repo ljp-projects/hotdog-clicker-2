@@ -120,6 +120,7 @@ function check(interval) {
     return update() ? setInterval(() => {
         const amt = stats.mps / (1000 / interval);
         stats.money += amt;
+        stats.totalEarned += amt;
         update();
     }, interval) : 0;
 }
