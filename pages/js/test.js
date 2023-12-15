@@ -37,7 +37,7 @@ function check(v, max) {
     stats.updates++;
     if (v) {
         const r = update();
-        check(r, max);
+        r ? requestAnimationFrame(update) : check(r, 100);
     }
     else if (stats.updates < max) {
         check(v, max);
