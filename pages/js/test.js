@@ -46,4 +46,6 @@ function check(v, max) {
         console.error(`Not executing script, required dom elements not found after ${max} tries.`);
     }
 }
-check(update(), 10000);
+window.onload = function () {
+    check(update(), 100);
+};
