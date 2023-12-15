@@ -20,6 +20,9 @@ const getStat = (index) => {
 const getGame = (index) => {
     return document.querySelectorAll("#game *")[index];
 };
+const getBuilds = (index, s1, s2) => {
+    return document.querySelectorAll(`#builds ${s1} ${s2}`)[index];
+};
 const round = (n, max) => {
     if (n >= 1e3 && n < 1e6) {
         return `${(n / 1e3).toFixed(max != null ? max : 5)}K`;
@@ -75,8 +78,8 @@ const round = (n, max) => {
     return n.toFixed(max != null ? max : 5);
 };
 const update = () => {
-    const moneyElement = getStat(Elements.Money), totalEarnedElement = getStat(Elements.TotalEarned), totalClicksElement = getStat(Elements.TotalClicks), buttonElement = getGame(Elements.Button), powerElement = getStat(Elements.Power);
-    if (moneyElement && totalEarnedElement && totalClicksElement && buttonElement && powerElement) {
+    const moneyElement = getStat(Elements.Money), totalEarnedElement = getStat(Elements.TotalEarned), totalClicksElement = getStat(Elements.TotalClicks), buttonElement = getGame(Elements.Button), powerElement = getStat(Elements.Power), stallBuyElement = getBuilds(0, "section", "button");
+    if (moneyElement && totalEarnedElement && totalClicksElement && buttonElement && powerElement && stallBuyElement) {
         moneyElement.textContent = round(stats.money, 2);
         totalEarnedElement.textContent = round(stats.totalEarned, 2);
         totalClicksElement.textContent = round(stats.totalClicks, 2);
@@ -86,6 +89,7 @@ const update = () => {
             stats.totalClicks++;
             stats.totalEarned += stats.power;
         };
+        console.log(stallBuyElement.textContent);
         return true;
     }
     return false;
