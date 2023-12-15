@@ -93,13 +93,16 @@ const update = () => {
             stats.totalClicks++;
             stats.totalEarned += stats.power;
         };
-        if (stats.money >= stats.stall.price)
+        if (stats.money >= stats.stall.price) {
             stallBuyElement.onclick = function () {
                 stats.money -= stats.stall.price;
                 stats.stall.price *= 1.25;
                 stats.stall.owned++;
                 stats.mps += stats.stall.rate;
             };
+        }
+        else
+            stallBuyElement.onclick = () => { };
         moneyElement.textContent = round(stats.money, 2);
         mpsElement.textContent = round(stats.mps, 2);
         totalEarnedElement.textContent = round(stats.totalEarned, 2);
