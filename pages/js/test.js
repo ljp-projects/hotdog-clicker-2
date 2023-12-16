@@ -27,7 +27,7 @@ const Elements = {
     Power: 4,
     Button: 0,
     Stall: 0,
-    UnderpaidChef: 0
+    UnderpaidChef: 1
 };
 
 const getStat = index => document.querySelectorAll("#stats p span")[index]
