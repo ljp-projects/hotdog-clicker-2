@@ -3,7 +3,7 @@
 :root {
     font-family: "Poppins", system-ui, sans-serif;
     text-decoration: none;
-    color: #111111ab;
+    color: #a8a8ff;
 }
 
 html {
@@ -11,12 +11,12 @@ html {
 }
 
 button {
-    background-color: #111111ab !important;
-    color: #eeeeeeee !important;
+    background-color: #a8a8ff !important;
+    color: #1d1d2d !important;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
 }
 
 body {
-    background-image: linear-gradient(74deg, #ff9797, #fff597);
+    background-color: #1d1d2d
 }
