@@ -10,11 +10,42 @@ html {
     min-height: 100%;
 }
 
+#game {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
+
+#builds {
+    right: 2.5%;
+    top: 2.5%;
+    position: absolute;
+    border-left-color: #a8a8ff;
+    border-left-style: solid;
+    border-left-width: medium;
+    padding-left: 1.25%;
+    overflow: scroll;
+}
+
+hr {
+    border-color: #a8a8ff;
+    border-width: thin;
+}
+
 button {
     background-color: #a8a8ff !important;
     color: #1d1d2d !important;
     border: none;
     border-radius: 0.25rem;
+}
+
+#game button {
+    width: 50vh;
+    height: 50vh;
+    border-radius: 50%;
+    font-size: 5rem;
 }
 
 body {
