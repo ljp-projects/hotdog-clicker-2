@@ -10,6 +10,12 @@ const stats = {
         price: 15,
         owned: 0,
         rate: 0.1
+    },
+
+    uchef: {
+        price: 100,
+        owned: 0,
+        rate: 1
     }
 };
 
@@ -20,7 +26,8 @@ const Elements = {
     TotalClicks: 3,
     Power: 4,
     Button: 0,
-    Stall: 0
+    Stall: 0,
+    UnderpaidChef: 0
 };
 
 const getStat = index => document.querySelectorAll("#stats p span")[index]
@@ -69,17 +76,34 @@ const round = (n, max) => {
 
 const update = () => {
     const moneyElement = getStat(Elements.Money),
-          totalEarnedElement = getStat(Elements.TotalEarned),
-          totalClicksElement = getStat(Elements.TotalClicks),
-          buttonElement = getGame(Elements.Button),
-          powerElement = getStat(Elements.Power),
-          mpsElement = getStat(Elements.MPS),
-          stallBuyElement = getBuilds(Elements.Stall, "section", "button"),
-          stallPriceElement = getBuilds(Elements.Stall, "section", "em span"),
-          stallOwnedElement = getBuilds(Elements.Stall, "section", "p span"),
-          stallRateElement = getBuilds(Elements.Stall, "section", "strong span");
+        totalEarnedElement = getStat(Elements.TotalEarned),
+        totalClicksElement = getStat(Elements.TotalClicks),
+        buttonElement = getGame(Elements.Button),
+        powerElement = getStat(Elements.Power),
+        mpsElement = getStat(Elements.MPS),
+        stallBuyElement = getBuilds(Elements.Stall, "section", "button"),
+        stallPriceElement = getBuilds(Elements.Stall, "section", "em span"),
+        stallOwnedElement = getBuilds(Elements.Stall, "section", "p span"),
+        stallRateElement = getBuilds(Elements.Stall, "section", "sub strong span"),
+        uchefBuyElement = getBuilds(Elements.UnderpaidChef, "section", "button"),
+        uchefPriceElement = getBuilds(Elements.UnderpaidChef, "section", "em span"),
+        uchefOwnedElement = getBuilds(Elements.UnderpaidChef, "section", "p span"),
+        uchefRateElement = getBuilds(Elements.UnderpaidChef, "section", "sub strong span");
 
-    if (moneyElement && totalEarnedElement && totalClicksElement && buttonElement && powerElement && stallBuyElement && stallPriceElement && stallOwnedElement) {
+    if (
+        moneyElement &&
+        totalEarnedElement &&
+        totalClicksElement &&
+        buttonElement &&
+        powerElement &&
+        stallBuyElement &&
+        stallPriceElement &&
+        stallOwnedElement &&
+        uchefBuyElement &&
+        uchefPriceElement &&
+        uchefOwnedElement &&
+        uchefRateElement
+    ) {
 
         buttonElement.onclick = function () {
             stats.money += stats.power;
@@ -95,16 +119,31 @@ const update = () => {
                 stats.mps += stats.stall.rate;
             };
         } else
-            stallBuyElement.onclick = () => {};
+            stallBuyElement.onclick = () => { };
+
+        if (stats.money >= stats.uchef.price) {
+            uchefBuyElement.onclick = function () {
+                stats.money -= stats.uchef.price;
+                stats.uchef.price *= 1.25;
+                stats.uchef.owned++;
+                stats.mps += stats.uchef.rate;
+            };
+        } else
+            uchefBuyElement.onclick = () => { };
 
         moneyElement.textContent = round(stats.money, 2);
         mpsElement.textContent = round(stats.mps, 2);
         totalEarnedElement.textContent = round(stats.totalEarned, 2);
         totalClicksElement.textContent = round(stats.totalClicks, 0);
         powerElement.textContent = round(stats.power, 2);
-        stallOwnedElement.textContent = round(stats.stall.owned, 2);
+
+        stallOwnedElement.textContent = round(stats.stall.owned, 0);
         stallPriceElement.textContent = round(stats.stall.price, 2);
         stallRateElement.textContent = round(stats.stall.rate, 2);
+
+        uchefOwnedElement.textContent = round(stats.uchef.owned, 0);
+        uchefPriceElement.textContent = round(stats.uchef.price, 2);
+        uchefRateElement.textContent = round(stats.uchef.rate, 2)
 
         return true;
     }
