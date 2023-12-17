@@ -178,7 +178,11 @@ const update = () => {
 
         uchefOwnedElement.textContent = round(stats.uchef.owned, 0);
         uchefPriceElement.textContent = round(stats.uchef.price, 2);
-        uchefRateElement.textContent = round(stats.uchef.rate, 2)
+        uchefRateElement.textContent = round(stats.uchef.rate, 2);
+
+        cafeOwnedElement.textContent = round(stats.cafe.owned, 0);
+        cafePriceElement.textContent = round(stats.cafe.price, 2);
+        cafeRateElement.textContent = round(stats.cafe.rate, 2);
 
         return true;
     }
