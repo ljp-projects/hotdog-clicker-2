@@ -16,6 +16,12 @@ const stats = {
         price: 100,
         owned: 0,
         rate: 1
+    },
+
+    cafe: {
+        price: 660,
+        owned: 0,
+        rate: 5
     }
 };
 
@@ -27,8 +33,13 @@ const Elements = {
     Power: 4,
     Button: 0,
     Stall: 0,
-    UnderpaidChef: 1
+    UnderpaidChef: 1,
+    Cafe: 2
 };
+
+const Constants = Object.freeze({
+    increase: 1.12
+})
 
 const getStat = index => document.querySelectorAll("#stats p span")[index]
 const getGame = index => document.querySelectorAll("#game *")[index]
@@ -88,7 +99,11 @@ const update = () => {
         uchefBuyElement = getBuilds(Elements.UnderpaidChef, "section", "button"),
         uchefPriceElement = getBuilds(Elements.UnderpaidChef, "section", "em span"),
         uchefOwnedElement = getBuilds(Elements.UnderpaidChef, "section", "p span"),
-        uchefRateElement = getBuilds(Elements.UnderpaidChef, "section", "sub strong span");
+        uchefRateElement = getBuilds(Elements.UnderpaidChef, "section", "sub strong span"),
+        cafeBuyElement = getBuilds(Elements.Cafe, "section", "button"),
+        cafePriceElement = getBuilds(Elements.Cafe, "section", "em span"),
+        cafeOwnedElement = getBuilds(Elements.Cafe, "section", "p span"),
+        cafeRateElement = getBuilds(Elements.Cafe, "section", "sub strong span");
 
     if (
         moneyElement &&
@@ -102,7 +117,11 @@ const update = () => {
         uchefBuyElement &&
         uchefPriceElement &&
         uchefOwnedElement &&
-        uchefRateElement
+        uchefRateElement &&
+        cafeBuyElement &&
+        cafeOwnedElement &&
+        cafePriceElement &&
+        cafeRateElement
     ) {
 
         buttonElement.onclick = function () {
@@ -114,9 +133,11 @@ const update = () => {
         if (stats.money >= stats.stall.price) {
             stallBuyElement.onclick = function () {
                 stats.money -= stats.stall.price;
-                stats.stall.price *= 1.25;
+                stats.stall.price *= Constants.increase;
                 stats.stall.owned++;
                 stats.mps += stats.stall.rate;
+
+                this.onclick = () => { }
             };
         } else
             stallBuyElement.onclick = () => { };
@@ -124,12 +145,26 @@ const update = () => {
         if (stats.money >= stats.uchef.price) {
             uchefBuyElement.onclick = function () {
                 stats.money -= stats.uchef.price;
-                stats.uchef.price *= 1.25;
+                stats.uchef.price *= Constants.increase;
                 stats.uchef.owned++;
                 stats.mps += stats.uchef.rate;
+
+                this.onclick = () => { }
             };
         } else
             uchefBuyElement.onclick = () => { };
+
+        if (stats.money >= stats.cafe.price) {
+            cafeBuyElement.onclick = function () {
+                stats.money -= stats.cafe.price;
+                stats.cafe.price *= Constants.increase;
+                stats.cafe.owned++;
+                stats.mps += stats.cafe.rate;
+
+                this.onclick = () => { }
+            };
+        } else
+            cafeBuyElement.onclick = () => { };
 
         moneyElement.textContent = round(stats.money, 2);
         mpsElement.textContent = round(stats.mps, 2);
