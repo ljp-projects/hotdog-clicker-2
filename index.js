@@ -50,7 +50,7 @@ function generateSave() {
 }
 
 async function save() {
-    fetch("https://ljp-projects-save.000webhostapp.com/upload.php", {
+    fetch("https://ljp-projects-save.000webhostapp.com/upload.php/", {
         "method": "POST",
         headers: {
             "Content-Type": "application/json"
