@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/index.css">
+    <title>Hotdog Clicker v2</title>
+</head>
+
+<body>
+    <main>
+        <div id="menus">
+            <button id="store-open">
+                Store
+            </button>
+            <button id="upgrades-open">
+                Upgrades
+            </button>
+            <button id="options-open">
+                Options
+            </button>
+        </div>
+        <h1>
+            Hotdog Clicker v2
+        </h1>
+    </main>
+
+    <div class="slide" id="store" data-state="closed">
+        <h1>
+            Store
+        </h1>
+        <button class="close-slide" id="close-store"></button>
+    </div>
+
+    <div class="slide" id="upgrades" data-state="closed">
+        <h1>
+            Upgrades
+        </h1>
+        <button class="close-slide" id="close-upgrades"></button>
+        <ul>
+            <li>
+                <b>Realm of the Hotdog</b>
+                <p>
+                    Add 2.5% of your HPS to the profit of your hotdogs.
+                </p>
+                <button>
+                    BUY
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="slide" id="options" data-state="closed">
+        <h1>
+            Upgrades
+        </h1>
+        <button class="close-slide" id="close-options"></button>
+    </div>
+
+    <script src="https://js.bytescale.com/sdk/v3"></script>
+    <script src="/index.js"></script>
+</body>
+
+</html>

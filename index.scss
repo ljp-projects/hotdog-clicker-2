@@ -1,0 +1,126 @@
+$primary: #101010;
+$secondary: #2d5dff;
+$tertiary: #2dff5d;
+$quaternary: #fff45d;
+$close: #ff2d5dfa;
+$light: #eeeeee;
+
+$primary-size: 2.5rem;
+$secondary-size: 0.5rem;
+$tertiary-size: 1.25rem;
+$buffer: 0.5rem;
+
+[data-state="closed"] {
+    left: calc(100vw + $tertiary-size + $buffer);
+}
+
+[data-state="open"] {
+    left: 0;
+}
+
+:root {
+    font-family: system-ui, sans-serif;
+}
+
+.slide {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    transition: left 1.25s ease;
+    top: 0;
+
+    * {
+        color: $primary;
+    }
+}
+
+#store {
+    background-color: $secondary;
+
+    button {
+        color: $secondary;
+    }
+}
+
+#upgrades {
+    background-color: $tertiary;
+
+    button {
+        color: $tertiary;
+    }
+}
+
+#options {
+    background-color: $quaternary;
+
+    button {
+        color: $quaternary;
+    }
+}
+
+button {
+    background-color: $primary;
+    border: none;
+    border-radius: 0.25rem;
+}
+
+.close-slide {
+    right: $primary-size;
+    height: 90vh;
+    width: $primary-size;
+    margin-top: 5vh;
+    margin-right: 5vh;
+    top: 0;
+    position: absolute;
+    background-color: $close;
+    border: none;
+    border-radius: $secondary-size;
+    color: $primary !important;
+    font-weight: 700;
+    font-size: larger;
+}
+
+.slide,
+main {
+    padding-left: $primary-size;
+    padding-top: $tertiary-size;
+}
+
+main {
+    transition: filter 2s ease;
+
+    * {
+        color: $light;
+    }
+}
+
+#menus {
+    width: 12.5rem;
+    height: 9.5rem; /* 2.75 - 2.5 = 0.25 */
+    background-color: $primary;
+    border-style: solid;
+    border-color: $light;
+    border-radius: $secondary-size;
+    padding: $secondary-size;
+    font-weight: 700;
+    overflow-y: scroll;
+
+    button {
+        width: 100%;
+        height: calc(9.5rem / 3) - $secondary-size + calc($secondary-size / 3);
+        border: none;
+        border-radius: 0;
+        background-color: $primary;
+        margin-bottom: $secondary-size;
+        border-bottom-color: $light;
+        border-bottom-style: solid;
+    }
+}
+
+body {
+    background-color: $primary;
+}
+
+li {
+    list-style: none;
+}
