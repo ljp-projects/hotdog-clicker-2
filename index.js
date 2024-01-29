@@ -37,7 +37,7 @@ document.getElementById("close-options").addEventListener('click', function() {
 })
 
 function generateSave() {
-    let json = "{"
+    let json = "{data:{"
 
     for (const statement of document.cookie.split(";")) {
         const key = statement.split("=")[0]
@@ -46,7 +46,7 @@ function generateSave() {
         json += `${key}:${value},`
     }
 
-    return json + 'filename: "htcv2s.json"}'
+    return json + '},filename:"htcv2s.json"}'
 }
 
 async function save() {
